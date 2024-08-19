@@ -8,15 +8,16 @@ import datetime
 
 tarefas = []
 
-def adicionar_tarefa(descricao, prazo, urgencia):
+def adicionar_tarefa(descricao, prazo, prioridade):
     nova_tarefa = {
-        "id": len(tarefas) + 1, #CORRIGIR: ID se repete caso eu exclua algum
+        "id": len(tarefas) + 1, # CORRIGIR: ID se repete caso eu exclua algum
         "descrição": descricao,
-        "data_criação": datetime.datetime.now().date(),
+        "data_criação": datetime.datetime.now().date(), # Tentar aplicar nas datas: %b Month as locale’s abbreviated name. Jan, Feb, …, Dec (en_US)
         "prazo": prazo,
-        "urgência": urgencia,
+        "prioridade": prioridade,
         "status": "Pendente"
     }
+
     tarefas.append(nova_tarefa)
     print("\nTarefa adicionada!")
 
@@ -27,7 +28,7 @@ def listar_tarefas():
         print("\n--------------- LISTA DE TAREFAS --------------\n")
         for tarefa in tarefas:
             prazo_formatado = f"{tarefa['prazo']['ano']}-{tarefa['prazo']['mês']}-{tarefa['prazo']['dia']}"
-            print(f"\n| ID: {tarefa['id']} | Descrição: {tarefa['descrição']} | Data de criação: {tarefa['data_criação']} | Prazo: {prazo_formatado} | Urgência: {tarefa['urgência']} | Status: {tarefa['status']} |")
+            print(f"\n| ID: {tarefa['id']} | Descrição: {tarefa['descrição']} | Data de criação: {tarefa['data_criação']} | Prazo: {prazo_formatado} | Prioridade: {tarefa['prioridade']} | Status: {tarefa['status']} |")
 
 def marcar_tarefa(id):
     for tarefa in tarefas:
@@ -58,23 +59,38 @@ while True:
         if opcao == 1:
             descricao = input("Adicionar nova tarefa: ")
 
-            print("\nDefina o prazo: ")
-            dia = input("Dia: ")
-            mes = input("Mês: ")
-            ano = input("Ano: ")
+            try:
+                print("\nDefina o prazo: ")
+                dia = int(input("Dia: "))
+                mes = int(input("Mês: "))
+                ano = int(input("Ano: "))
+            except ValueError:
+                print("Preencha as informações utilizando números inteiros.")
 
             prazo = {
                 "dia": dia,
                 "mês": mes,
                 "ano": ano
             }
+            
+            print("\nNíveis de prioridade")
+            print("1 - Baixa")
+            print("2 - Média)")
+            print("3 - Alta")
+            
+            try:
+                prioridade = int(input("\nSelecione o número referente a prioridade: "))
+            except ValueError:
+                print("Nível de prioridade inválida. Preencha a informação utilizando um número inteiro.")
 
-            print("\nDefina a urgência: ")
-            print("1 - Verde (não-urgente)")
-            print("2 - Amarelo (urgênte)")
-            print("3 - Vermelho (super urgente)")
-
-            adicionar_tarefa(descricao, prazo)
+            if prioridade == 1:
+                prioridade = "Baixa"
+            elif prioridade == 2:
+                prioridade = "Média"
+            elif prioridade == 3:
+                prioridade = "Alta"
+            
+            adicionar_tarefa(descricao, prazo, prioridade)
 
         elif opcao == 2:
             listar_tarefas()
