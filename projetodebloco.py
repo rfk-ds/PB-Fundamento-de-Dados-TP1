@@ -12,7 +12,7 @@ def adicionar_tarefa(descricao, prazo, prioridade):
     nova_tarefa = {
         "id": len(tarefas) + 1, # CORRIGIR: ID se repete caso eu exclua algum
         "descrição": descricao,
-        "data_criação": datetime.datetime.now().date(), # Tentar aplicar nas datas: %b Month as locale’s abbreviated name. Jan, Feb, …, Dec (en_US)
+        "data_criação": datetime.datetime.now().date().strftime("%d - %b - %Y"),
         "prazo": prazo,
         "prioridade": prioridade,
         "status": "Pendente"
@@ -75,7 +75,7 @@ while True:
             
             print("\nNíveis de prioridade")
             print("1 - Baixa")
-            print("2 - Média)")
+            print("2 - Média")
             print("3 - Alta")
             
             try:
