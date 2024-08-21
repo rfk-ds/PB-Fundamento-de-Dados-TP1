@@ -3,10 +3,23 @@ import datetime
 tarefas = []
 
 def adicionar_tarefa(descricao, prazo, prioridade):
+    """
+    Adiciona uma nova tarefa à lista de tarefas.
+
+    A nova tarefa é criada com um ID, descrição, data de criação, prazo,
+    prioridade e status inicial "Pendente". 
+    
+    Args:
+        descricao: A descrição da tarefa.
+        prazo: O prazo para a conclusão da tarefa.
+        prioridade: A prioridade da tarefa.
+
+    Tarefa é adicionada à lista global `tarefas`.
+    """
     nova_tarefa = {
-        "id": len(tarefas) + 1, # CORRIGIR: ID se repete caso eu exclua algum
+        "id": len(tarefas) + 1,
         "descrição": descricao,
-        "data_criação": datetime.datetime.now().date().strftime("%d - %b - %Y"),
+        "data_criação": datetime.datetime.now().date().strftime("%d - %B - %Y"),
         "prazo": prazo,
         "prioridade": prioridade,
         "status": "Pendente"
@@ -16,6 +29,14 @@ def adicionar_tarefa(descricao, prazo, prioridade):
     print("\nTarefa adicionada!")
 
 def listar_tarefas():
+    """
+    Exibe todas as tarefas cadastradas na lista de tarefas.
+
+    A função verifica se há tarefas cadastradas e, caso existam, imprime uma lista formatada 
+    com os detalhes de cada tarefa, incluindo ID, descrição, data de criação, prazo, prioridade e status.
+
+    Se a lista de tarefas estiver vazia, uma mensagem informando que não há tarefas cadastradas é exibida.
+    """
     if not tarefas:
         print("Não há tarefas cadastradas.")
     else:
@@ -24,6 +45,16 @@ def listar_tarefas():
             print(f"\n| ID: {tarefa['id']} | Descrição: {tarefa['descrição']} | Data de criação: {tarefa['data_criação']} | Prazo: {tarefa['prazo']} | Prioridade: {tarefa['prioridade']} | Status: {tarefa['status']} |")
 
 def marcar_tarefa(id):
+    """
+    Marca uma tarefa com base no ID fornecido.
+
+    A função percorre a lista de tarefas e altera o status da tarefa com o ID correspondente
+    para "Concluída". Se a tarefa for encontrada e marcada, uma mensagem de sucesso é exibida.
+    Caso contrário, uma mensagem informando que a tarefa não foi encontrada é mostrada.
+
+    Args:
+        id: O ID da tarefa a ser marcada como concluída.
+    """
     for tarefa in tarefas:
         if tarefa['id'] == id:
             tarefa['status'] = "Concluída"
@@ -32,6 +63,16 @@ def marcar_tarefa(id):
     print("\nTarefa não encontrada.")
 
 def remover_tarefa(id):
+    """
+    Remove uma tarefa da lista de tarefas com base no ID fornecido.
+
+    A função percorre a lista de tarefas e remove a tarefa cujo ID corresponde ao valor fornecido.
+    Se a tarefa for encontrada e removida, uma mensagem de sucesso é exibida. Caso contrário, 
+    uma mensagem informando que a tarefa não foi encontrada é mostrada.
+
+    Args:
+        id: O ID da tarefa a ser removida.
+    """
     for tarefa in tarefas:
         if tarefa['id'] == id:
             tarefas.remove(tarefa)
@@ -44,7 +85,7 @@ while True:
         print("1 - Adicionar tarefas")
         print("2 - Listar tarefas")
         print("3 - Marcar tarefas como concluídas")
-        print("4 - Remover tarrefas")
+        print("4 - Remover tarefas")
         print("0 - SAIR")
 
         opcao = int(input("\nSelecione uma opção: "))
