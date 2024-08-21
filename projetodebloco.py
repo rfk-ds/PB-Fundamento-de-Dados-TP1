@@ -80,7 +80,26 @@ def remover_tarefa(id):
             return
     print("\nTarefa não encontrada.")
 
-while True:
+def exibir_menu():
+    """
+    Exibe um menu interativo para gerenciar tarefas.
+
+    A função apresenta um menu com opções para adicionar, listar, marcar como concluídas ou remover tarefas.
+    O usuário pode selecionar uma opção digitando o número correspondente. 
+    O menu continua sendo exibido até que o usuário selecione a opção de sair (0).
+
+    Funcionalidades:
+    - Adicionar tarefas: Permite ao usuário adicionar uma nova tarefa, especificando uma descrição, prazo e prioridade.
+    - Listar tarefas: Exibe todas as tarefas cadastradas, com informações detalhadas.
+    - Marcar tarefas como concluídas: Permite ao usuário marcar uma tarefa como concluída, identificando-a pelo ID.
+    - Remover tarefas: Permite ao usuário remover uma tarefa da lista, identificando-a pelo ID.
+    - Sair: Encerra o loop e, portanto, o programa.
+
+    Tratamento de erros:
+    - O código verifica a validade das entradas do usuário, garantindo que as opções sejam números inteiros válidos.
+    - Mensagens de erro são exibidas para entradas inválidas, e o menu é redisponibilizado.
+    """
+    while True:
         print("\n--------------- MENU --------------\n")
         print("1 - Adicionar tarefas")
         print("2 - Listar tarefas")
@@ -164,3 +183,5 @@ while True:
 
         else:
             print("\nOpção inválida.\n")
+
+exibir_menu()
