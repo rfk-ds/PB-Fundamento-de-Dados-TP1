@@ -42,7 +42,7 @@ def listar_tarefas():
     else:
         print("\n--------------- LISTA DE TAREFAS --------------\n")
         for tarefa in tarefas:
-            print(f"\n| ID: {tarefa['id']} | Descrição: {tarefa['descrição']} | Data de criação: {tarefa['data_criação']} | Prazo: {tarefa['prazo']} | Prioridade: {tarefa['prioridade']} | Status: {tarefa['status']} |")
+            print(f"\n| ID: {tarefa['id']} | Descrição: {tarefa['descrição']} | Criada em: {tarefa['data_criação']} | Prazo: {tarefa['prazo']} | Prioridade: {tarefa['prioridade']} | Status: {tarefa['status']} |")
 
 def marcar_tarefa(id):
     """
