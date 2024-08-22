@@ -10,7 +10,7 @@ def adicionar_tarefa(descricao, prazo, prioridade):
     prioridade e status inicial "Pendente". 
 
     Geração do ID da nova tarefa: se a lista de tarefas não estiver vazia
-    um novo ID será gerado incrimentando o maior ID presente na lista
+    um novo ID será gerado incrementando o maior ID presente na lista
     
     Parâmetros:
         descricao: A descrição da tarefa.
@@ -68,6 +68,7 @@ def marcar_tarefa(id):
             tarefa['status'] = "Concluída"
             print("\nTarefa marcada como concluída!")
             return
+
     print("\nTarefa não encontrada.")
 
 def remover_tarefa(id):
@@ -86,12 +87,11 @@ def remover_tarefa(id):
             tarefas.remove(tarefa)
             print("\nTarefa removida com sucesso!")
             return
+
     print("\nTarefa não encontrada.")
 
-def exibir_menu():
+def menu():
     """
-    Exibe um menu interativo para gerenciar tarefas.
-
     A função apresenta um menu com opções para adicionar, listar, marcar como concluídas ou remover tarefas.
     O usuário pode selecionar uma opção digitando o número correspondente. 
     O menu continua sendo exibido até que o usuário selecione a opção de sair (0).
@@ -115,81 +115,90 @@ def exibir_menu():
         print("4 - Remover tarefas")
         print("0 - SAIR")
 
-        opcao = int(input("\nSelecione uma opção: "))
+        try:
+            opcao = int(input("\nSelecione uma opção: "))
+        
+            if opcao == 1:
+                descricao = input("Adicionar nova tarefa: ")
 
-        if opcao == 1:
-            descricao = input("Adicionar nova tarefa: ")
+                print("\nPrazo da tarefa:")
+                print("1 - Quando conveniente")
+                print("2 - Em breve")
+                print("3 - Imediato")
 
-            print("\nPrazo da tarefa:")
-            print("1 - Quando conveniente")
-            print("2 - Em breve")
-            print("3 - Imediato")
+                while True:
+                    try:
+                        prazo = int(input("\nSelecione o número referente ao prazo: "))
+                    except ValueError:
+                        print("Seleção de prazo inválida. Preencha a informação utilizando um número inteiro.")
 
-            while True:
+                    if prazo == 1:
+                        prazo = "Quando conveniente"
+                        break
+
+                    elif prazo == 2:
+                        prazo = "Em breve"
+                        break
+
+                    elif prazo == 3:
+                        prazo = "Imediato"
+                        break
+
+                    else:
+                        print(f"A opção {prazo} não existe.")
+            
+                print("\nNível de prioridade")
+                print("1 - Baixa")
+                print("2 - Média")
+                print("3 - Alta")
+            
+                while True:
+                    try:
+                        prioridade = int(input("\nSelecione o número referente a prioridade: "))
+                    except ValueError:
+                        print("Nível de prioridade inválida. Preencha a informação utilizando um número inteiro.")
+
+                    if prioridade == 1:
+                        prioridade = "Baixa"
+                        break
+
+                    elif prioridade == 2:
+                        prioridade = "Média"
+                        break
+
+                    elif prioridade == 3:
+                        prioridade = "Alta"
+                        break
+                    
+                    else:
+                        print(f"A opção {prioridade} não existe")
+            
+                adicionar_tarefa(descricao, prazo, prioridade)
+        
+
+            elif opcao == 2:
+                listar_tarefas()
+
+            elif opcao == 3:
                 try:
-                    prazo = int(input("\nSelecione o número referente ao prazo: "))
+                    id = int(input("Selecione o ID da tarefa que deseja marcar como concluída: "))
+                    marcar_tarefa(id)
                 except ValueError:
-                    print("Seleção de prazo inválida. Preencha a informação utilizando um número inteiro.")
+                    print("\nID inválido. Faça seleção utilizando um número inteiro.")
 
-                if prazo == 1:
-                    prazo = "Quando conveniente"
-                    break
-                elif prazo == 2:
-                    prazo = "Em breve"
-                    break
-                elif prazo == 3:
-                    prazo = "Imediato"
-                    break
-                else:
-                    print(f"A opção {prazo} não existe.")
-            
-            print("\nNível de prioridade")
-            print("1 - Baixa")
-            print("2 - Média")
-            print("3 - Alta")
-            
-            while True:
+            elif opcao == 4:
                 try:
-                    prioridade = int(input("\nSelecione o número referente a prioridade: "))
+                    id = int(input("Selecione o ID da tarefa que deseja excluir: "))
+                    remover_tarefa(id)
                 except ValueError:
-                    print("Nível de prioridade inválida. Preencha a informação utilizando um número inteiro.")
+                    print("\nID inválido. Faça seleção utilizando um número inteiro.")
 
-                if prioridade == 1:
-                    prioridade = "Baixa"
-                    break
-                elif prioridade == 2:
-                    prioridade = "Média"
-                    break
-                elif prioridade == 3:
-                    prioridade = "Alta"
-                    break
-                else:
-                    print(f"A opção {prioridade} não existe")
-            
-            adicionar_tarefa(descricao, prazo, prioridade)
+            elif opcao == 0:
+                break
 
-        elif opcao == 2:
-            listar_tarefas()
+            else:
+                print("\nOpção inválida.\n")
+        except ValueError:
+            print("\n\nSELEÇÃO INVÁLIDA! Escolha uma das opções utilizando um número INTEIRO.")
 
-        elif opcao == 3:
-            try:
-                id = int(input("Selecione o ID da tarefa que deseja marcar como concluída: "))
-                marcar_tarefa(id)
-            except ValueError:
-                print("\nID inválido. Faça seleção utilizando um número inteiro.")
-
-
-        elif opcao == 4:
-            try:
-                id = int(input("Selecione o ID da tarefa que deseja excluir: "))
-                remover_tarefa(id)
-            except ValueError:
-                print("\nID inválido. Faça seleção utilizando um número inteiro.")
-
-        elif opcao == 0:
-            break
-
-        else:
-            print("\nOpção inválida.\n")
-
-exibir_menu()
+menu()
