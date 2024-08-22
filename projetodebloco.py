@@ -8,16 +8,24 @@ def adicionar_tarefa(descricao, prazo, prioridade):
 
     A nova tarefa é criada com um ID, descrição, data de criação, prazo,
     prioridade e status inicial "Pendente". 
+
+    Geração do ID da nova tarefa: se a lista de tarefas não estiver vazia
+    um novo ID será gerado incrimentando o maior ID presente na lista
     
-    Args:
+    Parâmetros:
         descricao: A descrição da tarefa.
         prazo: O prazo para a conclusão da tarefa.
         prioridade: A prioridade da tarefa.
 
     Tarefa é adicionada à lista global `tarefas`.
     """
+    if tarefas:
+        novo_id = max(tarefa['id'] for tarefa in tarefas) + 1
+    else:
+        novo_id = 1
+
     nova_tarefa = {
-        "id": len(tarefas) + 1,
+        "id": novo_id,
         "descrição": descricao,
         "data_criação": datetime.datetime.now().date().strftime("%d - %B - %Y"),
         "prazo": prazo,
@@ -52,7 +60,7 @@ def marcar_tarefa(id):
     para "Concluída". Se a tarefa for encontrada e marcada, uma mensagem de sucesso é exibida.
     Caso contrário, uma mensagem informando que a tarefa não foi encontrada é mostrada.
 
-    Args:
+    Parâmetros:
         id: O ID da tarefa a ser marcada como concluída.
     """
     for tarefa in tarefas:
@@ -70,7 +78,7 @@ def remover_tarefa(id):
     Se a tarefa for encontrada e removida, uma mensagem de sucesso é exibida. Caso contrário, 
     uma mensagem informando que a tarefa não foi encontrada é mostrada.
 
-    Args:
+    Parâmetros:
         id: O ID da tarefa a ser removida.
     """
     for tarefa in tarefas:
@@ -93,7 +101,7 @@ def exibir_menu():
     - Listar tarefas: Exibe todas as tarefas cadastradas, com informações detalhadas.
     - Marcar tarefas como concluídas: Permite ao usuário marcar uma tarefa como concluída, identificando-a pelo ID.
     - Remover tarefas: Permite ao usuário remover uma tarefa da lista, identificando-a pelo ID.
-    - Sair: Encerra o loop e, portanto, o programa.
+    - Sair: Encerra o loop/programa.
 
     Tratamento de erros:
     - O código verifica a validade das entradas do usuário, garantindo que as opções sejam números inteiros válidos.
